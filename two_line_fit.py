@@ -3,7 +3,7 @@ import numpy as np
 from line_model import fit_line_total_least_squares, distances_to_line
 
 
-def fit_two_lines(points):
+def fit_bruteforce(points):
     restart_rng = np.random.default_rng(0)
     best_lines = None
     best_cost = np.inf
@@ -14,6 +14,13 @@ def fit_two_lines(points):
             best_cost = cost
             best_lines = lines
     return best_lines
+
+
+def fit_singleshot(points):
+    rng = np.random.default_rng(0)
+    initial_assignment = rng.integers(0, 2, size=len(points))
+    lines, cost = run_alternating_fit(points, initial_assignment)
+    return lines
 
 
 def run_alternating_fit(points, assignment):

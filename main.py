@@ -2,7 +2,9 @@ import matplotlib.pyplot as plt
 
 from data_cases import build_all_cases
 from line_model import line_endpoints_for_plot
-from two_line_fit import fit_two_lines
+from two_line_fit import fit_bruteforce, fit_singleshot
+
+fit_two_lines = fit_bruteforce
 
 
 def draw_points(axis, points, title):
