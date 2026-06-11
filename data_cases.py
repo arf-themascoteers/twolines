@@ -47,7 +47,7 @@ def make_random_case(rng):
 
 
 def build_all_cases():
-    rng = np.random.default_rng(42)
+    rng = np.random.default_rng(41)
     cases = []
     cases.append(("Parallel", make_parallel_case(rng)))
     cases.append(("Perpendicular", make_perpendicular_case(rng)))

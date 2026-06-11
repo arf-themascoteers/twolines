@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
-
+import numpy as np
 from data_cases import build_all_cases
 from line_model import line_endpoints_for_plot
-from two_line_fit import fit_bruteforce, fit_singleshot
+from two_line_fit import fit_bruteforce, fit_singleshot, fit_besteffort
 
-fit_two_lines = fit_bruteforce
+fit_two_lines = fit_besteffort
 
 
 def draw_points(axis, points, title):
@@ -34,4 +34,5 @@ def main():
 
 
 if __name__ == "__main__":
+    
     main()
