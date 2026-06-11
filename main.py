@@ -1,16 +1,35 @@
-# This is a sample Python script.
+import matplotlib.pyplot as plt
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from data_cases import build_all_cases
+from line_model import line_endpoints_for_plot
+from two_line_fit import fit_two_lines
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def draw_points(axis, points, title):
+    axis.scatter(points[:, 0], points[:, 1], s=8, color="gray")
+    axis.set_xlim(-0.55, 0.55)
+    axis.set_ylim(-0.55, 0.55)
+    axis.set_aspect("equal")
+    axis.set_title(title)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+def draw_fitted_lines(axis, lines):
+    for line, color in zip(lines, ("tab:red", "tab:blue")):
+        start, end = line_endpoints_for_plot(line)
+        axis.plot([start[0], end[0]], [start[1], end[1]], color=color, linewidth=2)
+
+
+def main():
+    cases = build_all_cases()
+    figure, axes = plt.subplots(2, len(cases), figsize=(4 * len(cases), 8))
+    for column, (title, points) in enumerate(cases):
+        draw_points(axes[0, column], points, title)
+        draw_points(axes[1, column], points, title + " (fitted)")
+        lines = fit_two_lines(points)
+        draw_fitted_lines(axes[1, column], lines)
+    plt.tight_layout()
+    plt.show()
+
+
+if __name__ == "__main__":
+    main()
